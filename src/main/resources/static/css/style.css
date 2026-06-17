@@ -1,0 +1,920 @@
+/* ============================================
+   Photory - フォトカレンダー日記アプリ CSS
+   ============================================ */
+
+/* --- リセット & ベース --- */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Segoe UI', 'Helvetica Neue', 'Noto Sans JP', sans-serif;
+	background: #F7F3EE;
+	color: #4A4550;
+	line-height: 1.6;
+	min-height: 100vh;
+}
+
+/* --- 認証ページ共通レイアウト --- */
+.auth-page {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	background: linear-gradient(135deg, #F7F3EE 0%, #E8E0F0 50%, #E2EFE0 100%);
+}
+
+.auth-card {
+	width: 100%;
+	max-width: 380px;
+	background: #fff;
+	border-radius: 20px;
+	padding: 36px 32px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* --- ロゴ --- */
+.auth-logo {
+	text-align: center;
+	margin-bottom: 24px;
+}
+
+.auth-logo-icon {
+	font-size: 40px;
+	display: block;
+	margin-bottom: 4px;
+}
+
+.auth-logo-title {
+	font-size: 22px;
+	font-weight: 500;
+	color: #4A4550;
+}
+
+.auth-logo-subtitle {
+	font-size: 12px;
+	color: #8A8490;
+	margin-top: 2px;
+}
+
+/* --- ページタイトル（新規登録用） --- */
+.auth-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.auth-back {
+	text-decoration: none;
+	color: #7B6896;
+	font-size: 20px;
+	line-height: 1;
+}
+
+.auth-header-title {
+	font-size: 16px;
+	font-weight: 500;
+	color: #4A4550;
+}
+
+/* --- フォーム --- */
+.form-group {
+	margin-bottom: 14px;
+}
+
+.form-label {
+	display: block;
+	font-size: 12px;
+	color: #8A8490;
+	margin-bottom: 4px;
+	font-weight: 400;
+}
+
+.form-input {
+	width: 100%;
+	padding: 11px 14px;
+	border: 1px solid #E0DAD0;
+	border-radius: 10px;
+	background: #FDF8F0;
+	font-size: 14px;
+	color: #4A4550;
+	transition: border-color 0.2s, box-shadow 0.2s;
+	outline: none;
+}
+
+.form-input:focus {
+	border-color: #B8A9C9;
+	box-shadow: 0 0 0 3px rgba(184, 169, 201, 0.15);
+}
+
+.form-input::placeholder {
+	color: #C0BAC8;
+}
+
+/* --- ボタン --- */
+.btn {
+	display: block;
+	width: 100%;
+	padding: 12px;
+	border: none;
+	border-radius: 10px;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.btn:active {
+	transform: scale(0.98);
+}
+
+.btn-primary {
+	background: #B8A9C9;
+	color: #fff;
+	box-shadow: 0 2px 8px rgba(184, 169, 201, 0.3);
+	margin-top: 6px;
+}
+
+.btn-primary:hover {
+	background: #A898BA;
+	box-shadow: 0 4px 12px rgba(184, 169, 201, 0.4);
+}
+
+.btn-google {
+	background: #fff;
+	color: #4A4550;
+	border: 1px solid #E0DAD0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.btn-google:hover {
+	background: #FAFAFA;
+	border-color: #D0CAC0;
+}
+
+.btn-google-logo {
+	font-size: 18px;
+	font-weight: 600;
+	color: #4285F4;
+}
+
+/* --- 区切り線 --- */
+.divider {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 16px 0;
+}
+
+.divider-line {
+	flex: 1;
+	height: 1px;
+	background: #E0DAD0;
+}
+
+.divider-text {
+	font-size: 11px;
+	color: #8A8490;
+}
+
+/* --- リンク --- */
+.auth-link {
+	text-align: center;
+	margin-top: 16px;
+	font-size: 12px;
+	color: #8A8490;
+}
+
+.auth-link a {
+	color: #7B6896;
+	text-decoration: underline;
+	font-weight: 500;
+}
+
+.auth-link a:hover {
+	color: #5E4E78;
+}
+
+/* --- エラーメッセージ --- */
+.error-message {
+	background: #F5E6E6;
+	color: #8A4A4A;
+	padding: 10px 14px;
+	border-radius: 8px;
+	font-size: 12px;
+	margin-bottom: 14px;
+	text-align: center;
+}
+
+/* --- レスポンシブ --- */
+@media (max-width: 420px) {
+	.auth-card {
+		padding: 28px 20px;
+		border-radius: 16px;
+	}
+}
+
+/* ============================================
+   TOP画面 - カレンダー
+   ============================================ */
+
+.top-page {
+	min-height: 100vh;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 24px 16px;
+	background: linear-gradient(135deg, #F7F3EE 0%, #E8E0F0 50%, #E2EFE0 100%);
+}
+
+.top-card {
+	width: 100%;
+	max-width: 420px;
+	background: #fff;
+	border-radius: 20px;
+	padding: 24px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* --- ユーザーヘッダー --- */
+.user-header {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #E0DAD0;
+	margin-bottom: 16px;
+}
+
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: #E8E0F0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #7B6896;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.user-info {
+	flex: 1;
+}
+
+.user-name {
+	font-size: 14px;
+	font-weight: 500;
+	color: #4A4550;
+}
+
+.user-sub {
+	font-size: 11px;
+	color: #8A8490;
+}
+
+.logout-btn {
+	font-size: 11px;
+	color: #8A8490;
+	padding: 4px 10px;
+	border: 1px solid #E0DAD0;
+	border-radius: 6px;
+	background: transparent;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.logout-btn:hover {
+	background: #F5F0F0;
+	color: #6A6470;
+}
+
+/* --- 月ナビゲーション --- */
+.cal-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.cal-nav-title {
+	font-size: 16px;
+	font-weight: 500;
+	color: #4A4550;
+}
+
+.cal-nav-btn {
+	text-decoration: none;
+	color: #7B6896;
+	font-size: 16px;
+	padding: 4px 10px;
+	border-radius: 6px;
+}
+
+.cal-nav-btn:hover {
+	background: #E8E0F0;
+}
+
+/* --- カレンダーグリッド --- */
+.cal-grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 3px;
+	margin-bottom: 12px;
+}
+
+.cal-header {
+	text-align: center;
+	font-size: 11px;
+	color: #8A8490;
+	padding: 6px 0;
+	font-weight: 400;
+}
+
+.cal-sun {
+	color: #D48A8A;
+}
+
+.cal-sat {
+	color: #7A9EC4;
+}
+
+.cal-cell {
+	aspect-ratio: 1;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	color: #4A4550;
+	text-decoration: none;
+	transition: background 0.15s;
+	cursor: pointer;
+}
+
+.cal-cell:hover {
+	background: #F0ECE6;
+}
+
+.cal-empty {
+	cursor: default;
+}
+
+.cal-empty:hover {
+	background: transparent;
+}
+
+
+.cal-dot {
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: #5E8A56;
+	margin-top: 2px;
+}
+
+.cal-today {
+	background-color: #F2D9A0;
+	font-weight: 600;
+	border: 1.5px solid #D4A060;
+}
+
+.cal-today:hover {
+	background-color: #EDCF8E;
+}
+
+/* 画像がある今日のセルは黄色背景を消す */
+.cal-has-image.cal-today {
+	background-color: transparent;
+	border: 2px solid #F2D9A0;
+	box-shadow: 0 0 0 1px #D4A060;
+}
+
+/* --- 凡例 --- */
+.cal-legend {
+	display: flex;
+	gap: 16px;
+	justify-content: center;
+	padding-top: 8px;
+}
+
+.legend-item {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 11px;
+	color: #8A8490;
+}
+
+.legend-dot {
+	width: 12px;
+	height: 12px;
+	border-radius: 4px;
+}
+
+.legend-today {
+	background: #F2D9A0;
+	border: 1px solid #D4A060;
+}
+
+.legend-registered {
+	background: #E2EFE0;
+}
+
+.legend-empty {
+	background: #FDF8F0;
+	border: 1px solid #E0DAD0;
+}
+
+/* ============================================
+   日記登録・振り返り・編集画面 共通
+   ============================================ */
+
+.diary-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.date-badge {
+	display: inline-block;
+	background: #E8E0F0;
+	color: #7B6896;
+	font-size: 13px;
+	padding: 5px 14px;
+	border-radius: 16px;
+	margin-bottom: 16px;
+}
+
+/* --- 画像アップロード --- */
+.image-upload {
+	width: 100%;
+	aspect-ratio: 4/3;
+	border: 2px dashed #B8A9C9;
+	border-radius: 12px;
+	background: #E8E0F0;
+	cursor: pointer;
+	overflow: hidden;
+	margin-bottom: 16px;
+	transition: border-color 0.2s, background 0.2s;
+}
+
+.image-upload:hover {
+	border-color: #7B6896;
+	background: #DDD4E8;
+}
+
+.image-preview-area {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.upload-icon {
+	font-size: 32px;
+	margin-bottom: 6px;
+}
+
+.upload-text {
+	font-size: 12px;
+	color: #7B6896;
+}
+
+.preview-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* --- テキストエリア --- */
+.form-textarea {
+	width: 100%;
+	padding: 11px 14px;
+	border: 1px solid #E0DAD0;
+	border-radius: 10px;
+	background: #FDF8F0;
+	font-size: 14px;
+	color: #4A4550;
+	font-family: inherit;
+	resize: none;
+	height: 100px;
+	outline: none;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea:focus {
+	border-color: #B8A9C9;
+	box-shadow: 0 0 0 3px rgba(184, 169, 201, 0.15);
+}
+
+.form-textarea::placeholder {
+	color: #C0BAC8;
+}
+
+.char-limit {
+	color: #D4A0A0;
+	font-size: 11px;
+}
+
+.char-count {
+	text-align: right;
+	font-size: 11px;
+	color: #8A8490;
+	margin-top: 4px;
+	margin-bottom: 8px;
+}
+
+/* --- キャンセルボタン --- */
+.btn-cancel {
+	display: block;
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #B8A9C9;
+	border-radius: 10px;
+	background: transparent;
+	color: #7B6896;
+	font-size: 14px;
+	font-weight: 500;
+	text-align: center;
+	text-decoration: none;
+	margin-top: 8px;
+	transition: background 0.15s;
+}
+
+.btn-cancel:hover {
+	background: #F0ECF5;
+}
+
+/* ============================================
+   振り返り画面
+   ============================================ */
+
+.view-image {
+	width: 100%;
+	border-radius: 12px;
+	overflow: hidden;
+	margin-bottom: 16px;
+	background: #E8E0F0;
+}
+
+.view-img {
+	width: 100%;
+	display: block;
+}
+
+.view-title {
+	font-size: 18px;
+	font-weight: 500;
+	color: #4A4550;
+	margin-bottom: 10px;
+}
+
+.view-diary {
+	background: #FDF8F0;
+	border-radius: 10px;
+	padding: 14px 16px;
+	margin-bottom: 16px;
+}
+
+.view-diary p {
+	font-size: 14px;
+	color: #4A4550;
+	line-height: 1.8;
+}
+
+.view-actions {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.btn-edit {
+	flex: 1;
+	display: block;
+	padding: 12px;
+	border: 1px solid #B8A9C9;
+	border-radius: 10px;
+	background: transparent;
+	color: #7B6896;
+	font-size: 14px;
+	font-weight: 500;
+	text-align: center;
+	text-decoration: none;
+	transition: background 0.15s;
+}
+
+.btn-edit:hover {
+	background: #F0ECF5;
+}
+
+.btn-delete {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #D4A0A0;
+	border-radius: 10px;
+	background: transparent;
+	color: #8A5A5A;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.btn-delete:hover {
+	background: #F5E6E6;
+}
+
+/* ============================================
+   編集画面 追加
+   ============================================ */
+
+.image-upload {
+	position: relative;
+}
+
+.image-change-badge {
+	position: absolute;
+	bottom: 24px;
+	right: 8px;
+	background: #B8A9C9;
+	color: #fff;
+	padding: 4px 12px;
+	border-radius: 14px;
+	font-size: 12px;
+}
+
+/* ============================================
+   レスポンシブ対応（スマホ優先）
+   ============================================ */
+
+/* --- スマホ（〜480px） --- */
+@media (max-width: 480px) {
+
+	/* 全体 */
+	.auth-page,
+	.top-page {
+		padding: 12px 8px;
+		align-items: flex-start;
+	}
+
+	/* カード */
+	.auth-card {
+		padding: 24px 18px;
+		border-radius: 16px;
+		max-width: 100%;
+	}
+
+	.top-card {
+		padding: 16px 14px;
+		border-radius: 16px;
+		max-width: 100%;
+	}
+
+	/* ロゴ */
+	.auth-logo-icon {
+		font-size: 32px;
+	}
+
+	.auth-logo-title {
+		font-size: 20px;
+	}
+
+	/* フォーム */
+	.form-input,
+	.form-textarea {
+		font-size: 16px;
+		/* iOSでズームされるのを防ぐ */
+		padding: 12px 14px;
+	}
+
+	.btn {
+		padding: 14px;
+		font-size: 15px;
+	}
+
+	/* ユーザーヘッダー */
+	.user-header {
+		padding-bottom: 12px;
+		margin-bottom: 12px;
+	}
+
+	.user-avatar {
+		width: 36px;
+		height: 36px;
+		font-size: 14px;
+	}
+
+	.user-name {
+		font-size: 13px;
+	}
+
+	/* カレンダー */
+	.cal-nav-title {
+		font-size: 15px;
+	}
+
+	.cal-grid {
+		gap: 2px;
+	}
+
+	.cal-header {
+		font-size: 10px;
+		padding: 4px 0;
+	}
+
+	.cal-cell {
+		border-radius: 6px;
+		font-size: 12px;
+	}
+
+	.cal-dot {
+		width: 3px;
+		height: 3px;
+	}
+
+	.cal-legend {
+		gap: 10px;
+	}
+
+	.legend-item {
+		font-size: 10px;
+	}
+
+	.legend-dot {
+		width: 10px;
+		height: 10px;
+	}
+
+	/* 日記画面 */
+	.diary-header {
+		margin-bottom: 12px;
+	}
+
+	.date-badge {
+		font-size: 12px;
+		padding: 4px 12px;
+	}
+
+	.image-upload {
+		margin-bottom: 12px;
+	}
+
+	.upload-icon {
+		font-size: 28px;
+	}
+
+	.upload-text {
+		font-size: 11px;
+	}
+
+	.image-change-badge {
+		font-size: 11px;
+		padding: 3px 10px;
+		bottom: 16px;
+		right: 6px;
+	}
+
+	/* 振り返り画面 */
+	.view-title {
+		font-size: 16px;
+	}
+
+	.view-diary p {
+		font-size: 13px;
+	}
+
+	.view-actions {
+		gap: 6px;
+	}
+
+	.btn-edit,
+	.btn-delete {
+		padding: 11px;
+		font-size: 13px;
+	}
+}
+
+/* --- タブレット（481px〜768px） --- */
+@media (min-width: 481px) and (max-width: 768px) {
+
+	.auth-card,
+	.top-card {
+		max-width: 440px;
+	}
+
+	.cal-cell {
+		font-size: 13px;
+		border-radius: 8px;
+	}
+}
+
+/* --- タッチデバイス共通 --- */
+@media (hover: none) and (pointer: coarse) {
+
+	/* タップしやすいサイズに */
+	.cal-cell {
+		min-height: 40px;
+	}
+
+	.cal-nav-btn {
+		padding: 8px 14px;
+		font-size: 18px;
+	}
+
+	.logout-btn {
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+
+	/* ホバー効果を無効化（タッチデバイスでは不要） */
+	.cal-cell:hover {
+		background: transparent;
+	}
+
+	.cal-registered:hover {
+		background: #E2EFE0;
+	}
+
+	.cal-today:hover {
+		background: #F2D9A0 !important;
+	}
+}
+
+/* ============================================
+	   カレンダー画像表示
+	   ============================================ */
+
+.cal-has-image {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+.cal-has-image::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom,
+			rgba(0, 0, 0, 0.1) 0%,
+			rgba(0, 0, 0, 0.35) 100%);
+	border-radius: 8px;
+	pointer-events: none;
+}
+
+.cal-day-label {
+	position: relative;
+	z-index: 1;
+	color: #fff;
+	font-weight: 600;
+	font-size: 13px;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ホバー時に変化させない */
+.cal-has-image:hover {
+	background-color: transparent;
+}
+
+/* 画像セル + 今日 */
+.cal-has-image.cal-today {
+	background-color: transparent;
+	border: 2px solid #F2D9A0;
+	box-shadow: 0 0 0 1px #D4A060;
+}
+
+.legend-registered {
+	background: linear-gradient(135deg, #A8C5A0, #B8A9C9);
+}
+
+@media (max-width: 480px) {
+	.cal-day-label {
+		font-size: 11px;
+	}
+}
+
+
+/* --- フォームエラーメッセージ --- */
+.field-error {
+	color: #8A4A4A;
+	font-size: 11px;
+	margin-top: 4px;
+}

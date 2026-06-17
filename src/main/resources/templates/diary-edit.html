@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内容を編集 - Photory</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="top-page">
+        <div class="top-card">
+
+            <div class="diary-header">
+                <a th:href="@{/diary/view(date=${date})}" class="auth-back">←</a>
+                <span class="auth-header-title">内容を編集</span>
+            </div>
+
+            <div class="date-badge" th:text="${date}">2026-06-17</div>
+
+            <form method="post" th:action="@{/diary/edit}" enctype="multipart/form-data">
+                <input type="hidden" name="date" th:value="${date}">
+
+                <!-- 現在の画像を表示 + 変更ボタン -->
+                <div class="image-upload" onclick="document.getElementById('imageInput').click()">
+                    <div id="preview" class="image-preview-area">
+                        <img th:src="${imageUrl}" alt="現在の画像" class="preview-img">
+                    </div>
+                    <div class="image-change-badge">📷 画像を変更</div>
+                </div>
+                <input type="file" id="imageInput" name="image" accept="image/*"
+                       style="display:none" onchange="previewImage(this)">
+
+                <!-- タイトル -->
+                <div class="form-group">
+                    <label class="form-label">タイトル</label>
+                    <input type="text" name="title" class="form-input"
+                           th:value="${entry.title}" maxlength="100">
+                </div>
+
+                <!-- 日記 -->
+                <div class="form-group">
+                    <label class="form-label">日記 <span class="char-limit">(150文字以内)</span></label>
+                    <textarea name="diaryText" class="form-textarea"
+                              maxlength="150" oninput="updateCount(this)"
+                              th:text="${entry.diaryText}"></textarea>
+                    <div class="char-count"><span id="charCount">0</span> / 150</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">✓ 更新する</button>
+                <a th:href="@{/diary/view(date=${date})}" class="btn btn-cancel">キャンセル</a>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').innerHTML =
+                    '<img src="' + e.target.result + '" class="preview-img">';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function updateCount(textarea) {
+        document.getElementById('charCount').textContent = textarea.value.length;
+    }
+
+    // ページ読み込み時に文字数を初期表示
+    window.onload = function() {
+        var textarea = document.querySelector('.form-textarea');
+        if (textarea) {
+            document.getElementById('charCount').textContent = textarea.value.length;
+        }
+    }
+    </script>
+</body>
+</html>

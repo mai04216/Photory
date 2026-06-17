@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Photory - カレンダー</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div class="top-page">
+		<div class="top-card">
+
+			<!-- ユーザーヘッダー -->
+			<div class="user-header">
+				<div class="user-avatar" th:text="${#strings.substring(user.userName, 0, 1)}">は</div>
+				<div class="user-info">
+					<div class="user-name" th:text="${user.userName} + ' さん'">はなこ さん</div>
+					<div class="user-sub">今日も1枚、記録しよう</div>
+				</div>
+				<form method="post" th:action="@{/logout}" style="margin:0">
+				    <button type="submit" class="logout-btn">ログアウト</button>
+				</form>
+			</div>
+
+			<!-- 月ナビゲーション -->
+			<div class="cal-nav">
+				<a th:href="@{/(year=${month == 1 ? year - 1 : year}, month=${month == 1 ? 12 : month - 1})}"
+					class="cal-nav-btn">◀</a>
+				<span class="cal-nav-title" th:text="${year} + '年 ' + ${month} + '月'">2026年 6月</span>
+				<a th:href="@{/(year=${month == 12 ? year + 1 : year}, month=${month == 12 ? 1 : month + 1})}"
+					class="cal-nav-btn">▶</a>
+			</div>
+
+			<!-- カレンダー -->
+			<div class="cal-grid">
+				<!-- 曜日ヘッダー -->
+				<div class="cal-header cal-sun">日</div>
+				<div class="cal-header">月</div>
+				<div class="cal-header">火</div>
+				<div class="cal-header">水</div>
+				<div class="cal-header">木</div>
+				<div class="cal-header">金</div>
+				<div class="cal-header cal-sat">土</div>
+
+				<!-- 1日より前の空セル -->
+				<div th:each="i : ${#numbers.sequence(1, startDayOfWeek)}" class="cal-cell cal-empty"></div>
+
+				<!-- 日付セル -->
+				<th:block th:each="day : ${#numbers.sequence(1, daysInMonth)}">
+				    <!-- 登録済みの日（画像表示） -->
+				    <a th:if="${registeredDays.contains(day)}"
+				       th:href="@{/diary/view(date=${dateMap.get(day)})}"
+				       th:style="'background-image: url(' + ${imageMap.get(day)} + ')'"
+				       th:classappend="${today.getYear() == year && today.getMonthValue() == month && today.getDayOfMonth() == day} ? 'cal-today' : ''"
+				       class="cal-cell cal-has-image">
+				        <span class="cal-day-label" th:text="${day}">1</span>
+				    </a>
+				    <!-- 未登録の日 -->
+				    <a th:unless="${registeredDays.contains(day)}"
+				       th:href="@{/diary/new(date=${dateMap.get(day)})}"
+				       th:classappend="${today.getYear() == year && today.getMonthValue() == month && today.getDayOfMonth() == day} ? 'cal-today' : ''"
+				       class="cal-cell">
+				        <span th:text="${day}">1</span>
+				    </a>
+				</th:block>
+			</div>
+
+			<!-- 凡例 -->
+			<div class="cal-legend">
+				<div class="legend-item">
+					<span class="legend-dot legend-today"></span>今日
+				</div>
+				<div class="legend-item">
+					<span class="legend-dot legend-registered"></span>登録済み
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

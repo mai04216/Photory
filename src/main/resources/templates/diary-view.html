@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>振り返り - Photory</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="top-page">
+        <div class="top-card">
+
+            <div class="diary-header">
+                <a th:href="@{/}" class="auth-back">←</a>
+                <span class="auth-header-title">振り返り</span>
+            </div>
+
+            <div class="date-badge" th:text="${date}">2026-06-17</div>
+
+            <!-- 登録画像 -->
+            <div class="view-image">
+                <img th:src="${imageUrl}" alt="登録画像" class="view-img">
+            </div>
+
+            <!-- タイトル -->
+            <h2 class="view-title" th:text="${entry.title}">タイトル</h2>
+
+            <!-- 日記 -->
+            <div class="view-diary" th:if="${entry.diaryText != null && !entry.diaryText.isEmpty()}">
+                <p th:text="${entry.diaryText}">日記の内容がここに表示されます。</p>
+            </div>
+
+            <!-- ボタン -->
+            <div class="view-actions">
+                <a th:href="@{/diary/edit(date=${date})}" class="btn btn-edit">✏️ 編集</a>
+                <form method="post" th:action="@{/diary/delete}" style="flex:1">
+                    <input type="hidden" name="date" th:value="${date}">
+                    <button type="submit" class="btn btn-delete"
+                            onclick="return confirm('本当に削除しますか？')">🗑 削除</button>
+                </form>
+            </div>
+
+            <a th:href="@{/}" class="btn btn-cancel">カレンダーに戻る</a>
+
+        </div>
+    </div>
+</body>
+</html>
