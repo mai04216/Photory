@@ -205,6 +205,17 @@ body {
 	color: #5E4E78;
 }
 
+/* --- 成功メッセージ --- */
+.success-message {
+	background: #E6F5EA;
+	color: #2E7D42;
+	padding: 10px 14px;
+	border-radius: 8px;
+	font-size: 12px;
+	margin-bottom: 14px;
+	text-align: center;
+}
+
 /* --- エラーメッセージ --- */
 .error-message {
 	background: #F5E6E6;

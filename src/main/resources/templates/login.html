@@ -17,6 +17,11 @@
 				<div class="auth-logo-subtitle">毎日の1枚を、カレンダーに。</div>
 			</div>
 
+			<!-- 登録完了メッセージ -->
+			<div th:if="${param.registered}" class="success-message">
+				登録完了！ログインしてください
+			</div>
+
 			<!-- エラーメッセージ -->
 			<div th:if="${param.error}" class="error-message">
 			    <span th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null and session.SPRING_SECURITY_LAST_EXCEPTION.class.simpleName == 'LockedException'}">

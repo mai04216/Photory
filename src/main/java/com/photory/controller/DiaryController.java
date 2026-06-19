@@ -68,7 +68,8 @@ public class DiaryController {
         DiaryEntry entry = diaryEntryService.getEntry(user.getId(), entryDate);
         model.addAttribute("entry", entry);
         model.addAttribute("date", entryDate);
-        model.addAttribute("imageUrl", "/" + entry.getImagePath().replace("\\", "/"));
+        // 画像URLを認可付きAPIエンドポイント経由に変更（直接ファイルパスを公開しない）
+        model.addAttribute("imageUrl", "/api/images/" + entry.getId());
         return "diary-view";
     }
 
@@ -81,7 +82,8 @@ public class DiaryController {
         DiaryEntry entry = diaryEntryService.getEntry(user.getId(), entryDate);
         model.addAttribute("entry", entry);
         model.addAttribute("date", entryDate);
-        model.addAttribute("imageUrl", "/" + entry.getImagePath().replace("\\", "/"));
+        // 画像URLを認可付きAPIエンドポイント経由に変更（直接ファイルパスを公開しない）
+        model.addAttribute("imageUrl", "/api/images/" + entry.getId());
         return "diary-edit";
     }
 

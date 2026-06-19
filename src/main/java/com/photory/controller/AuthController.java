@@ -42,7 +42,8 @@ public class AuthController {
             return "register";
         }
 
-        return "redirect:/login";
+        // 登録完了メッセージをログイン画面に表示するためクエリパラメータを付与
+        return "redirect:/login?registered";
     }
 
     @GetMapping("/login")

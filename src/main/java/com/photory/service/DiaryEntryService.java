@@ -11,6 +11,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.photory.controller.ImageController;
 import com.photory.entity.DiaryEntry;
 import com.photory.entity.User;
 import com.photory.repository.DiaryEntryRepository;
@@ -46,7 +47,10 @@ public class DiaryEntryService {
         Path userDir = Paths.get(uploadDir, String.valueOf(user.getId()));
         Files.createDirectories(userDir);
 
-        // 2. ファイル名を一意にする（重複防止）
+        // 2. ファイル拡張子がホワイトリストに含まれるか検証する
+        if (!ImageController.isAllowedExtension(originalFileName)) {
+            throw new IllegalArgumentException("許可されていないファイル形式です。jpg, jpeg, png, gif, webpのみアップロードできます。");
+        }
         String extension = originalFileName.substring(
             originalFileName.lastIndexOf("."));
         String fileName = entryDate.toString() + "_" + UUID.randomUUID() + extension;
@@ -87,11 +91,14 @@ public class DiaryEntryService {
     	entry.setTitle(title);
     	entry.setDiaryText(diaryText);
     	
-//    	画像が新しく選択された場合のみ更新
+//    	画像が新しく選択された場合のみ更新（拡張子ホワイトリストを検証する）
     	if (imageData != null && imageData.length > 0) {
+    		if (!ImageController.isAllowedExtension(originalFileName)) {
+    		    throw new IllegalArgumentException("許可されていないファイル形式です。jpg, jpeg, png, gif, webpのみアップロードできます。");
+    		}
     		Path userDir = Paths.get(uploadDir, String.valueOf(userId));
     		Files.createDirectories(userDir);
-    		
+
     		String extension = originalFileName.substring(
     	            originalFileName.lastIndexOf("."));
     	        String fileName = date.toString() + "_" + UUID.randomUUID() + extension;

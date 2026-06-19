@@ -24,7 +24,7 @@ public class UserService {
 
 //　指示①　メールアドレスの重複チェック
 		if (userRepository.existsByEmail(email)) {
-			throw new RuntimeException("このメールアドレスは既に登録されています");
+			throw new RuntimeException("既に登録されているメールアドレスまたはパスワードです");
 		}
 
 //	指示②　パスワードをハッシュ化
