@@ -1,23 +1,10 @@
 package com.photory.configuration;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
-    @Value("${app.upload.dir}")
-    private String uploadDir;
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        Path uploadPath = Paths.get(uploadDir).toAbsolutePath();
-        registry.addResourceHandler("/uploads/images/**")
-                .addResourceLocations("file:///" + uploadPath.toString().replace("\\", "/") + "/");
-    }
+    // 画像は認可付きのImageController(/api/images/{id})経由で配信するため、
+    // 静的リソースマッピングは設定しない
 }

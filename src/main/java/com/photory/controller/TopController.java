@@ -87,11 +87,11 @@ public class TopController {
 		model.addAttribute("startDayOfWeek", startDayOfWeek);
 		model.addAttribute("registeredDays", registeredDays);
 		
-		// 登録済みの日の画像URLマップを準備
+		// 登録済みの日の画像URLマップを準備（APIエンドポイント経由で配信する）
 		java.util.Map<Integer, String> imageMap = new java.util.HashMap<>();
 		for (DiaryEntry entry : entries) {
 		    int day = entry.getEntryDate().getDayOfMonth();
-		    String imageUrl = "/" + entry.getImagePath().replace("\\", "/");
+		    String imageUrl = "/api/images/" + entry.getId();
 		    imageMap.put(day, imageUrl);
 		}
 		model.addAttribute("imageMap", imageMap);
