@@ -8,4 +8,4 @@ WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
 RUN mkdir -p /app/uploads/images
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=${PORT:8080}"]

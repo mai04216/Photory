@@ -21,10 +21,18 @@ services:
         fromDatabase:
           name: photory-db
           property: password
-      - key: DATABASE_URL
+      - key: DB_HOST
         fromDatabase:
           name: photory-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: photory-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: photory-db
+          property: database
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: GOOGLE_CLIENT_SECRET
