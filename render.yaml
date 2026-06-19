@@ -1,0 +1,31 @@
+databases:
+  - name: photory-db
+    plan: free
+    databaseName: photory
+    user: photory_user
+
+services:
+  - type: web
+    name: photory-app
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+      - key: DB_USERNAME
+        fromDatabase:
+          name: photory-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: photory-db
+          property: password
+      - key: DATABASE_URL
+        fromDatabase:
+          name: photory-db
+          property: connectionString
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
